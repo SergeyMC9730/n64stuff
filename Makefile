@@ -8,10 +8,12 @@ all: $(ROMNAME).z64
 BUILD_DIR = build
 include $(N64_INST)/include/n64.mk
 
-OBJS = $(BUILD_DIR)/main.o
+OBJS = $(wildcard src/*.c)
 
 $(ROMNAME).z64: N64_ROM_TITLE = "$(ROMNAME)"
+$(ROMNAME).z64: $(BUILD_DIR)/$(ROMNAME).dfs
 
+$(BUILD_DIR)/$(ROMNAME).dfs: $(wildcard filesystem/*)
 $(BUILD_DIR)/$(ROMNAME).elf: $(OBJS)
 
 clean:
